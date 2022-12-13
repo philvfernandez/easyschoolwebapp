@@ -39,16 +39,17 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        //Permit all requests inside the Web Application
-        http.authorizeRequests().anyRequest().permitAll().
-                and().formLogin()
-                .and().httpBasic();
-
-        //Deny All requests inside the Web application
-        /* http.authorizeRequests().anyRequest().denyAll().
-                and().formLogin()
-                .and().httpBasic(); */
+        http.csrf().disable()
+                .authorizeHttpRequests()
+                .regexMatchers("/home").permitAll()
+                .regexMatchers("/holidays/*").permitAll()
+                .regexMatchers("/contact").permitAll()
+                .regexMatchers("/saveMsg").permitAll()
+                .regexMatchers("/courses").permitAll()
+                .regexMatchers("/assets/*").permitAll()
+                .and().formLogin().and().httpBasic();
 
         return http.build();
     }
+
 }
