@@ -41,12 +41,12 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .regexMatchers("/home").permitAll()
-                .regexMatchers("/holidays/*").permitAll()
-                .regexMatchers("/contact").permitAll()
-                .regexMatchers("/saveMsg").permitAll()
-                .regexMatchers("/courses").permitAll()
-                .regexMatchers("/assets/*").permitAll()
+                .mvcMatchers("/home").permitAll()
+                .mvcMatchers("/holidays/*").permitAll()
+                .mvcMatchers("/contact").permitAll()
+                .mvcMatchers("/saveMsg").permitAll()
+                .mvcMatchers("/courses").permitAll()
+                .mvcMatchers("/assets/*").permitAll()
                 .and().formLogin().and().httpBasic();
 
         return http.build();
