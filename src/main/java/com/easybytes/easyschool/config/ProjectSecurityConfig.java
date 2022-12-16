@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -41,7 +44,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .mvcMatchers("/home").permitAll()
+                .mvcMatchers("/home").authenticated()
                 .mvcMatchers("/holidays/*").permitAll()
                 .mvcMatchers("/contact").permitAll()
                 .mvcMatchers("/saveMsg").permitAll()
@@ -50,6 +53,26 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
                 .and().formLogin().and().httpBasic();
 
         return http.build();
+    }
+
+
+    //TODO: DO NOT PUT IN PRODUCTION!! DEMO ONLY!
+    @Bean
+    public InMemoryUserDetailsManager userDetailsManager() {
+
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("12345")
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("54321")
+                .roles("USER", "ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
 }
