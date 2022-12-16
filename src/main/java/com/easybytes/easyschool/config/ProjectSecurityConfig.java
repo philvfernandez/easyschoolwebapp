@@ -44,13 +44,18 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
         http.csrf().disable()
                 .authorizeHttpRequests()
+                .mvcMatchers("/dashboard").authenticated()
                 .mvcMatchers("/home").authenticated()
                 .mvcMatchers("/holidays/*").permitAll()
                 .mvcMatchers("/contact").permitAll()
                 .mvcMatchers("/saveMsg").permitAll()
                 .mvcMatchers("/courses").permitAll()
-                .mvcMatchers("/assets/*").permitAll()
-                .and().formLogin().and().httpBasic();
+                .mvcMatchers("/about").permitAll()
+                .mvcMatchers("/login").permitAll()
+                .and().formLogin().loginPage("/login")
+                .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
+                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                .and().httpBasic();
 
         return http.build();
     }
