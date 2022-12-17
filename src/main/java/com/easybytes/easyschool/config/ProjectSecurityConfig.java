@@ -45,7 +45,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .mvcMatchers("/dashboard").authenticated()
-                .mvcMatchers("/home").authenticated()
+                .mvcMatchers("/home").permitAll()
                 .mvcMatchers("/holidays/*").permitAll()
                 .mvcMatchers("/contact").permitAll()
                 .mvcMatchers("/saveMsg").permitAll()
