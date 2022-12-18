@@ -42,7 +42,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
+        http.csrf().ignoringAntMatchers("/saveMsg").and()
                 .authorizeHttpRequests()
                 .mvcMatchers("/dashboard").authenticated()
                 .mvcMatchers("/home").permitAll()
@@ -52,6 +52,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
                 .mvcMatchers("/courses").permitAll()
                 .mvcMatchers("/about").permitAll()
                 .mvcMatchers("/login").permitAll()
+                .mvcMatchers("/logout").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                 .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
