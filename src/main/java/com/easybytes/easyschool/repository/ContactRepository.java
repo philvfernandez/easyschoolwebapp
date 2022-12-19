@@ -1,9 +1,18 @@
 package com.easybytes.easyschool.repository;
 
 import com.easybytes.easyschool.model.Contact;
+import com.easybytes.easyschool.rowmappers.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class ContactRepository {
@@ -22,5 +31,19 @@ public class ContactRepository {
         return jdbcTemplate.update(sql, contact.getName(), contact.getMobileNum(),
                 contact.getEmail(),contact.getSubject(),contact.getMessage(),
                 contact.getStatus(),contact.getCreatedAt(),contact.getCreatedBy());
+    }
+
+
+    /* PVF: This method is a little different from what was given in the course.
+    This way is a little easier to understand.
+     */
+    public List<Contact> findMsgsWithStatus(String status) {
+        String sql = "SELECT * FROM CONTACT_MSG where STATUS = ?";
+
+        List<Contact> contacts = jdbcTemplate.query(sql,
+                new BeanPropertyRowMapper(Contact.class),status);
+
+        return contacts;
+
     }
 }
