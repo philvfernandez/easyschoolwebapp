@@ -62,25 +62,20 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- The app only needs the database and the JDBC driver at runtime.
-             The app doesn't need them for compilation.  To instruct Maven
-             we only want these dependencies at runtime, we add the scope tag
-             with the value "runtime" -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.31</version>
         </dependency>
-
     </dependencies>
 
     <build>
