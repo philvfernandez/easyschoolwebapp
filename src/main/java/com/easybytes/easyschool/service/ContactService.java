@@ -50,7 +50,7 @@ public class ContactService {
         contact.ifPresent(contact1 -> {
             contact1.setStatus(EazySchoolConstants.CLOSE);
             contact1.setUpdatedBy(updatedBy);
-            contact1.setUndatedAt(LocalDateTime.now());
+            contact1.setUpdatedAt(LocalDateTime.now());
         });
 
         Contact updatedContact = contactRepository.save(contact.get());
