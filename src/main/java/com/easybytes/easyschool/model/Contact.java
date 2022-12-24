@@ -1,7 +1,9 @@
 package com.easybytes.easyschool.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -14,8 +16,14 @@ methods and Constructor at compile time.  This makes code short and clean.
 
 
 @Data
+@Entity
+@Table(name = "contact_msg")
 public class Contact extends BaseEntity{
 
+    @Id //Indicates primary key
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+    @GenericGenerator(name = "native", strategy = "native") //generates primary key automatically
+    @Column(name = "contact_id")
     private int contactId;
 
     /*
