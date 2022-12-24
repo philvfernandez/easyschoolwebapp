@@ -40,7 +40,7 @@ public class ContactService {
     }
 
     public List<Contact> findMsgWithOpenStatus() {
-        List<Contact> contactMsgs = contactRepository.findMsgsWithStatus(EazySchoolConstants.OPEN);
+        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
         return contactMsgs;
     }
 
