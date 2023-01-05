@@ -42,7 +42,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().ignoringAntMatchers("/saveMsg").and()
+        http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/public/**").and()
                 .authorizeHttpRequests()
                 .mvcMatchers("/dashboard").authenticated()
                 .mvcMatchers("/displayMessages").hasRole("ADMIN")
@@ -55,6 +55,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
                 .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/logout").permitAll()
                 .mvcMatchers("/h2-console/**").permitAll()
+                .mvcMatchers("/public/**").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                 .and().httpBasic();

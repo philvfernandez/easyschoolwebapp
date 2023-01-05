@@ -31,8 +31,6 @@ public class Contact extends BaseEntity{
     @NotEmpty: Checks if a given field is not null and its size/length is greater than zero.
     @NotBlank: Checks if a given field is not null and trimmed length is greater than zero.
      */
-    @NotBlank(message = "Name must not be blank")
-    @Size(min=3, message = "Name must be at least 3 characters long")
 
     @NotBlank(message = "Name must not be blank")
     @Size(min=3, message = "Name must be at least 3 characters long")
