@@ -59,11 +59,17 @@ public class Person extends BaseEntity {
     @Transient
     private String confirmPwd;
 
-    /* @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Roles.class)
-    @JoinColumn(name = "rold_id", referencedColumnName = "roleId",nullable = false)
+    /*
+      EAGER - fetch associated records from both Person and Roles tables.
+      PERSIST - Update both Person and Roles tables at the same time.
+      targetEntity is optional for readability.
+      These relationships are unidirectional only.  Meaning from Parent to child only and NOT from child to parent also.
+     */
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Roles.class)
+    @JoinColumn(name = "role_id", referencedColumnName = "roleId",nullable = false)
     private Roles roles;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = Address.class)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId", nullable = false)
-    private Address address; */
+    private Address address;
 }
