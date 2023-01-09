@@ -37,7 +37,7 @@ Author URL: http://w3layouts.com
 </section>
 <!-- //inner banner -->
 
-!-- Welcome block -->
+<!-- Welcome block -->
 <section class="w3l-contact py-1" id="contact">
     <div class="container py-md-1 py-1">
         <div class="title-main text-center mx-auto mb-md-1 mb-1" style="max-width:500px;">
@@ -73,17 +73,6 @@ Author URL: http://w3layouts.com
         </div>
     </div>
 </div>
-
-<!-- login block -->
-<section class="w3l-contact py-5" id="contact">
-    <div class="container py-md-5 py-4">
-        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
-            <h3 class="title-style" th:text="${'Welcome - ' + username}"></h3>
-            <p class="" th:text="${'You logged in as - ' + roles}"></p>
-        </div>
-
-    </div>
-</section>
 
 <!-- footer block -->
 <div th:replace="~{footer :: footer}">...</div>
