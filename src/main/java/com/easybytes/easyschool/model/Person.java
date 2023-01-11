@@ -3,6 +3,9 @@ package com.easybytes.easyschool.model;
 import com.easybytes.easyschool.annotation.FieldsValueMatch;
 import com.easybytes.easyschool.annotation.PasswordValidator;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,7 +14,25 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@Data
+/*
+Note: The @Data annotation applies for POJOs w/o dependencies on each other!!
+Because the Person and EazyClass classes have dependencies on each other,
+the toString() method will be glad whenever an instance of one of the classes
+is called. In other word the toString() of the Person will be called, since the
+Person has a dependency of EazyClass, the toString() in EazyClass will also be
+called and it will also call the toString() of the person. All that ends in a
+endless loop which results in a stackoverflow Exception.
+The good news is that the lombok is aware about the situation e.g is not a bug.
+To resolve, remove the @Data annotation and use @Getter and @Setter instead.
+
+References:
+https://stackoverflow.com/questions/34972895/lombok-hashcode-issue-with-java-lang-stackoverflowerror-null
+Udemy lecture questions on the issue:
+https://www.udemy.com/course/spring-springboot-jpa-hibernate-zero-to-master/learn/lecture/31085738#questions/17812428
+ */
+//@Data
+@Getter
+@Setter
 @Entity
 @FieldsValueMatch.List({
         @FieldsValueMatch(
@@ -75,5 +96,6 @@ public class Person extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "class_id", referencedColumnName = "classId", nullable = true)
+    //@ToString.Exclude
     private EazyClass eazyClass;
 }

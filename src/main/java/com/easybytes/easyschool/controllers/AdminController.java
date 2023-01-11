@@ -91,5 +91,17 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("/deleteStudent")
+    public ModelAndView deleteStudent(Model model, @RequestParam int personId, HttpSession session) {
+        EazyClass eazyClass = (EazyClass) session.getAttribute("eazyClass");
+        Optional<Person> person = personRepository.findById(personId);
+        person.get().setEazyClass(null);
+        eazyClass.getPersons().remove(person.get());
+        EazyClass eazyClassSaved = eazyClassRepository.save(eazyClass);
+        session.setAttribute("eazyClass",eazyClassSaved);
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayStudents?classId=" + eazyClass.getClassId());
+        return modelAndView;
+    }
+
 
 }

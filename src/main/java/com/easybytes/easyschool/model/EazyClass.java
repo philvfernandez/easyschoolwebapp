@@ -1,15 +1,21 @@
 package com.easybytes.easyschool.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+//@Data
 @Entity
+@Getter
+@Setter
 @Table(name = "class")
 public class EazyClass extends BaseEntity {
 
@@ -24,5 +30,6 @@ public class EazyClass extends BaseEntity {
 
     @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY,
                cascade = CascadeType.PERSIST, targetEntity = Person.class)
-    private Set<Person> persons;
+    @ToString.Exclude
+    private Set<Person> persons = new HashSet<>();
 }
