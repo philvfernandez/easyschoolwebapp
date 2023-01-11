@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,8 +57,37 @@ public class AdminController {
     }
 
     @GetMapping("/displayStudents")
-    public ModelAndView displayStudents(Model model, @RequestParam int classId) {
+    public ModelAndView displayStudents(Model model, @RequestParam int classId, HttpSession httpSession,
+                                        @RequestParam(value = "error", required = false) String error) {
+        String errorMessage = null;
         ModelAndView modelAndView = new ModelAndView("students.html");
+        Optional<EazyClass> eazyClass = eazyClassRepository.findById(classId);
+        modelAndView.addObject("eazyClass",eazyClass.get());
+        modelAndView.addObject("person",new Person());
+        httpSession.setAttribute("eazyClass", eazyClass.get());
+
+        if(error != null) {
+            errorMessage = "Invalid Email entered!!";
+            modelAndView.addObject("errorMessage", errorMessage);
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/addStudent")
+    public ModelAndView addStudent(Model model, @ModelAttribute("person") Person person, HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+        EazyClass eazyClass = (EazyClass) httpSession.getAttribute("eazyClass");
+        Person personEntity = personRepository.readByEmail(person.getEmail());
+        if(personEntity == null || !(personEntity.getPersonId() > 0)) {
+            modelAndView.setViewName("redirect:/admin/displayStudents?classId=" + eazyClass.getClassId()
+                                       + "&error=true");
+            return modelAndView;
+        }
+        personEntity.setEazyClass(eazyClass);
+        personRepository.save(personEntity);
+        eazyClass.getPersons().add(personEntity);
+        eazyClassRepository.save(eazyClass);
+        modelAndView.setViewName("redirect:/admin/displayStudents?classId=" + eazyClass.getClassId());
         return modelAndView;
     }
 
