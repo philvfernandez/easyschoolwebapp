@@ -13,9 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 //@Data
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "class")
 public class EazyClass extends BaseEntity {
 
@@ -30,6 +30,5 @@ public class EazyClass extends BaseEntity {
 
     @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY,
                cascade = CascadeType.PERSIST, targetEntity = Person.class)
-    @ToString.Exclude
     private Set<Person> persons = new HashSet<>();
 }

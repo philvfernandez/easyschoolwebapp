@@ -98,7 +98,6 @@ public class Person extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "class_id", referencedColumnName = "classId", nullable = true)
-    //@ToString.Exclude
     private EazyClass eazyClass;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

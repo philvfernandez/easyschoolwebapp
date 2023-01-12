@@ -22,12 +22,16 @@ public class DashboardController {
     public String displayDashboard(Model model, Authentication authentication, HttpSession httpSession) {
         Person person = personRepository.readByEmail(authentication.getName());
 
-        //set person object in session.
-        httpSession.setAttribute("loggedInPerson", person);
-
-
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", authentication.getAuthorities().toString());
+
+        //if(person.getEazyClass() != null && person.getEazyClass().getName() != null) {
+        if(null != person.getEazyClass() && null != person.getEazyClass().getName()){
+            model.addAttribute("enrolledClass", person.getEazyClass().getName());
+        }
+
+        //set person object in session.
+        httpSession.setAttribute("loggedInPerson", person);
 
         return "dashboard.html";
     }
