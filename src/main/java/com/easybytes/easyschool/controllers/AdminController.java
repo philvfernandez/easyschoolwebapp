@@ -1,12 +1,15 @@
 package com.easybytes.easyschool.controllers;
 
 import com.easybytes.easyschool.EasySchoolWebApplication;
+import com.easybytes.easyschool.model.Courses;
 import com.easybytes.easyschool.model.EazyClass;
 import com.easybytes.easyschool.model.Person;
+import com.easybytes.easyschool.repository.CoursesRepository;
 import com.easybytes.easyschool.repository.EazyClassRepository;
 import com.easybytes.easyschool.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,9 @@ public class AdminController {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    CoursesRepository coursesRepository;
 
     @RequestMapping("/displayClasses")
     public ModelAndView displayClasses(Model model) {
@@ -103,5 +109,13 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("/displayCourses")
+    public ModelAndView displayCourses(Model model) {
+        List<Courses> courses = coursesRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView("courses_secure.html");
+        modelAndView.addObject("courses", courses);
+        modelAndView.addObject("course", new Courses());
+        return modelAndView;
+    }
 
 }
