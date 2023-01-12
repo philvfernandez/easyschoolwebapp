@@ -161,4 +161,22 @@ public class AdminController {
         return modelAndView;
     }
 
+    /*
+       Note: This does not delete the actual record(s) from the DB.  It only breaks the relationship
+       between person and courses.
+     */
+    @GetMapping("/deleteStudentFromCourse")
+    public ModelAndView deleteStudentFromCourse(Model model, @RequestParam int personId,
+                                                HttpSession session) {
+        Courses courses = (Courses) session.getAttribute("courses");
+        Optional<Person> person = personRepository.findById(personId);
+        person.get().getCourses().remove(courses);
+        courses.getPersons().remove(person);
+        personRepository.save(person.get());
+        session.setAttribute("courses", courses);
+        ModelAndView modelAndView = new
+                ModelAndView("redirect:/admin/viewStudents?id=" + courses.getCourseId());
+        return modelAndView;
+    }
+
 }
