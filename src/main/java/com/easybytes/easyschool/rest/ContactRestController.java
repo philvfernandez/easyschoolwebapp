@@ -1,5 +1,6 @@
 package com.easybytes.easyschool.rest;
 
+import com.easybytes.easyschool.constants.EazySchoolConstants;
 import com.easybytes.easyschool.model.Contact;
 import com.easybytes.easyschool.model.Response;
 import com.easybytes.easyschool.repository.ContactRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -68,6 +70,28 @@ public class ContactRestController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
+    }
+
+    @PatchMapping("/closeMsg")
+    public ResponseEntity<Response> closeMsg(@RequestBody Contact contactReq) {
+        Response response = new Response();
+        Optional<Contact> contact = contactRepository.findById(contactReq.getContactId());
+        if(contact.isPresent()) {
+            contact.get().setStatus(EazySchoolConstants.CLOSE);
+            contactRepository.save(contact.get());
+        } else {
+            response.setStatusCode("400");
+            response.setStatusMsg("Invalid Contact ID received");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(response);
+        }
+        response.setStatusCode("200");
+        response.setStatusMsg("Message successfully closed");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+
     }
 
 }
