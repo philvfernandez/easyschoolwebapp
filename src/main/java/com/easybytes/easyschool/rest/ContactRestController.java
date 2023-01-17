@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(path = "/api/contact")
 public class ContactRestController {
 
@@ -18,13 +18,11 @@ public class ContactRestController {
     ContactRepository contactRepository;
 
     @GetMapping("/getMessagesByStatus")
-    @ResponseBody
     public List<Contact> getMessagesByStatus(@RequestParam(name = "status") String status) {
         return contactRepository.findByStatus(status);
     }
 
     @GetMapping("/getAllMsgsByStatus")
-    @ResponseBody
     public List<Contact> getAllMsgsByStatus(@RequestBody Contact contact) {
         if(contact != null && contact.getStatus() != null) {
             return contactRepository.findByStatus(contact.getStatus());
