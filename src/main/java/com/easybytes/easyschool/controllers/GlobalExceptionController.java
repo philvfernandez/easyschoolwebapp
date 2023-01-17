@@ -2,6 +2,7 @@ package com.easybytes.easyschool.controllers;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +14,7 @@ as an interceptor of exceptions thrown by methods annotated with @RequestMapping
  */
 
 @Slf4j
-@ControllerAdvice
+@ControllerAdvice(annotations = Controller.class)
 public class GlobalExceptionController {
 
     /*
