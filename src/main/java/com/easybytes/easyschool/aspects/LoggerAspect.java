@@ -28,7 +28,7 @@ public class LoggerAspect {
         return  returnObj;
     }
 
-    @AfterThrowing(value = "execution(* com.easybytes.easyschool.*.*(..)))", throwing = "ex")
+    @AfterThrowing(value = "execution(* com.easybytes.easyschool.*.*(..))", throwing = "ex")
     public void logException(JoinPoint joinPoint, Exception ex) {
         log.error(joinPoint.getSignature()+ " An exception happened due to : " + ex.getMessage());
     }
