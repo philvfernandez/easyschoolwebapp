@@ -45,8 +45,10 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/public/**")
-                .ignoringAntMatchers("/api/**").ignoringAntMatchers("/data-api/**").and()
+                .ignoringAntMatchers("/api/**").ignoringAntMatchers("/data-api/**")
+                .ignoringAntMatchers("/easyschool/actuator").and()
                 .authorizeHttpRequests()
+                .mvcMatchers("/easyschool/actuator/**").hasRole("ADMIN")
                 .mvcMatchers("/dashboard").authenticated()
                 .mvcMatchers("/displayProfile").authenticated()
                 .mvcMatchers("/updateProfile").authenticated()
