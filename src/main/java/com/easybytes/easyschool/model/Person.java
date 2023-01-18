@@ -2,6 +2,7 @@ package com.easybytes.easyschool.model;
 
 import com.easybytes.easyschool.annotation.FieldsValueMatch;
 import com.easybytes.easyschool.annotation.PasswordValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,16 +71,19 @@ public class Person extends BaseEntity {
     @NotBlank(message = "Confirm Email must not be blank")
     @Email(message = "Please provide a valid confirm email address")
     @Transient //Tell Spring Data JPA go ignore and do not construct this field for any type of DB operations.
+    @JsonIgnore
     private String confirmEmail;
 
     @NotBlank(message = "Password must not be blank")
     @Size(min = 5, message = "Password must be at least 5 characters long")
     @PasswordValidator
+    @JsonIgnore
     private String pwd;
 
     @NotBlank(message = "Confirm Password must not be blank")
     @Size(min = 5,message = "Confirm Password must be at least 5 characters long")
     @Transient
+    @JsonIgnore
     private String confirmPwd;
 
     /*
