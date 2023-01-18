@@ -64,6 +64,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
                 .mvcMatchers("/logout").permitAll()
                 .mvcMatchers("/h2-console/**").permitAll()
                 .mvcMatchers("/public/**").permitAll()
+                .mvcMatchers("/profile/**").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                 .and().httpBasic();
