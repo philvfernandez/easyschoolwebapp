@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "easyschool",
+      "type": "com.easybytes.easyschool.config.EasySchoolProps",
+      "sourceType": "com.easybytes.easyschool.config.EasySchoolProps"
+    }
+  ],
+  "properties": [
+    {
+      "name": "easyschool.branches",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.easybytes.easyschool.config.EasySchoolProps"
+    },
+    {
+      "name": "easyschool.contact",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "com.easybytes.easyschool.config.EasySchoolProps"
+    },
+    {
+      "name": "easyschool.page-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.easybytes.easyschool.config.EasySchoolProps"
+    }
+  ],
+  "hints": []
+}
